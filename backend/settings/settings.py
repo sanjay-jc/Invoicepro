@@ -8,7 +8,7 @@ SECRET_KEY = "gbn5cb=%rjm&^soc0ywav1ou%t^b@jxcht4mnh)ti-l8jpi8%3"
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 LOCAL_APPS = [
@@ -26,7 +26,13 @@ DEFAULT_APPS = [
     "django.contrib.staticfiles",
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+     "rest_framework",
+    "corsheaders",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    "django_filters",
+]
 
 INSTALLED_APPS = LOCAL_APPS+DEFAULT_APPS+THIRD_PARTY_APPS
 
@@ -35,6 +41,7 @@ INSTALLED_APPS = LOCAL_APPS+DEFAULT_APPS+THIRD_PARTY_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -119,12 +126,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],    
-
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'local_apps.account.authentication.CustomJWTAuthentication',    
-    ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 10,
+    "PAGE_SIZE": 1,
 }
 
 
@@ -180,3 +183,6 @@ CORS_ALLOWED_METHODS = [
     "OPTIONS",
 ]
 CSRF_COOKIE_SECURE = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
