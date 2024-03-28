@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth import authenticate, login,logout
 from rest_framework.views import APIView
 from rest_framework import generics
@@ -9,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.pagination import LimitOffsetPagination
 from .models import *
-from .serializers import *
+
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
@@ -37,20 +36,3 @@ class LoginView(APIView):
             return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
 
 
-
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        try:
-            logout(request)
-            return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response({"error":str(e)},status=status.HTTP_400_BAD_REQUEST)
-        
-
-
-class CustomerList(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = CustomerSerializer
-    queryset = User.objects.all().values("id","account_id","name","phone","email","address")

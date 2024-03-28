@@ -24,6 +24,8 @@ DEFAULT_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_yasg",
+
 ]
 
 THIRD_PARTY_APPS = [
@@ -32,6 +34,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "django_filters",
+
 ]
 
 INSTALLED_APPS = LOCAL_APPS+DEFAULT_APPS+THIRD_PARTY_APPS
@@ -127,7 +130,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],    
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 1,
+    "PAGE_SIZE": 10,
 }
 
 
@@ -185,4 +188,8 @@ CORS_ALLOWED_METHODS = [
 CSRF_COOKIE_SECURE = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'http://localhost',
+
 ]
+
+
