@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "c55c5847-9f57-4ac0-a823-2a389a82a37b",
+		"name": "InvoicePro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29819294"
+	},
+	"item": [
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Generate Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/account/v1/login",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"account",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log-out",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"refresh\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/token/blacklist/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"token",
+								"blacklist",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create-Customer/Invoice",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"customer\":{\n        \"name\":\"sanjay jc\",\n        \"phone\":\"234232352\",\n        \"email\":\"sanjay@gmail.com\"\n    }\n    // \"invoice\":{\n    //     \"customer\":\"3b71bd88-e3cb-4000-b41c-54dce241fb83\",\n    //     \"amount\":\"123\",\n    //     \"status\":\"Paid\"\n    // }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/invoice/v1/create-customer-invoice",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"invoice",
+						"v1",
+						"create-customer-invoice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"thisupdate1@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/invoice/v1/update-customer/174acd71-50ed-443b-8331-20fd3e278d65",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"invoice",
+						"v1",
+						"update-customer",
+						"174acd71-50ed-443b-8331-20fd3e278d65"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Invoice",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"date\":\"2024-12-01\",\n    \"amount\":\"10000\"\n\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/invoice/v1/update-invoice/b03046f9-453e-4cfa-a1dc-4348059363ec",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"invoice",
+						"v1",
+						"update-invoice",
+						"b03046f9-453e-4cfa-a1dc-4348059363ec"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List - Customer/Invoice",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTE5MDcyLCJpYXQiOjE3MTE0MzI2NzIsImp0aSI6ImY0NTY4YTI0N2M4YzQ1OWE5YjA0N2Y4NzY5NWI2MTRjIiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.YiumuT67GG0NV5YIrBwGixYmW0K4hTFa6zwJNdV26No",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/invoice/v1/list-customer-invoice/customers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"invoice",
+						"v1",
+						"list-customer-invoice",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List-Customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/invoice/v1/list-customers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"invoice",
+						"v1",
+						"list-customers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

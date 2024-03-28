@@ -22,10 +22,16 @@ class InvoiceSerializer(serializers.ModelSerializer):
     This serializer is used to serialize and deserialize Invoice objects.
 
     """
+    customer_name = serializers.SerializerMethodField(method_name="get_customer_name")
+
+    def get_customer_name(self,obj):
+        return obj.customer.name if obj.customer else "No Name"
     
     class Meta:
         model = Invoice
-        fields = ["id","invoice_id","customer","date","amount","status"]
+        fields = ["id","invoice_id","customer","date","amount","status","customer_name"]
+
+
 
 
 class CustomerListSerialzier(serializers.ModelSerializer):

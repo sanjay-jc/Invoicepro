@@ -16,7 +16,7 @@ class CustomerList(generics.ListAPIView):
 
     permission_classes = [IsAuthenticated]
     serializer_class = CustomerListSerialzier
-    queryset = User.objects.all().values("id","name")
+    queryset = Customer.objects.all().values("id","name")
 
 class CreateCustomerInvoice(APIView):
     """
@@ -32,13 +32,14 @@ class CreateCustomerInvoice(APIView):
 
             # Check if data for customer creation is provided
             if "customer" in request.data:
-                customer_serializer = CustomerSerializer(data=request.data.pop("customer"))\
+                customer_serializer = CustomerSerializer(data=request.data.pop("customer"))
                 
                 if customer_serializer.is_valid():
                     customer_serializer.save()  # Save the customer
                     return Response({"success":"Customer creation successfull"},status=status.HTTP_201_CREATED)
                 
                 else:
+                    print(customer_serializer.errors,"errors")
                     return Response({"error":customer_serializer.errors},status=status.HTTP_400_BAD_REQUEST)
                 
             # Check if data for invoice creation is provided
@@ -50,6 +51,7 @@ class CreateCustomerInvoice(APIView):
                     return Response({"success":" Invoice creation successfull"},status=status.HTTP_201_CREATED)
                 
                 else:
+                    
                     return Response({"error":invoice_serializer.errors},status=status.HTTP_400_BAD_REQUEST)
                 
             else:
@@ -114,7 +116,7 @@ class UpdateCustomer(generics.UpdateAPIView):
 
     permission_classes = [IsAuthenticated]  # Only authenticated users can access this endpoint
     serializer_class = CustomerSerializer   # Serializer for handling customer data
-    queryset = User.objects.all()           # Queryset to retrieve the customer object to be updated
+    queryset = Customer.objects.all()           # Queryset to retrieve the customer object to be updated
 
 
 class UpdateInvoice(generics.UpdateAPIView):
