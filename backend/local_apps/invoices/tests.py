@@ -150,7 +150,7 @@ class UpdateCustomerTest(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.client.force_authenticate(user=self.user)
-        self.customer = User.objects.create(username='customer1', email='customer@example.com')  # Create a sample customer
+        self.customer = Customer.objects.create(name='customer1', email='customer@example.com')  # Create a sample customer
 
     def test_update_customer(self):
         url = reverse('update_customer', kwargs={'pk': self.customer.pk})  # Use the correct URL name and provide the customer's pk
@@ -161,7 +161,7 @@ class UpdateCustomerTest(APITestCase):
         if serializer.is_valid():
             response = self.client.put(url, data, format='json')
             self.assertEqual(response.status_code, status.HTTP_200_OK)
-            updated_customer = User.objects.get(pk=self.customer.pk)
+            updated_customer = Customer.objects.get(pk=self.customer.pk)
             self.assertEqual(updated_customer.name, 'Updated Name')
             self.assertEqual(updated_customer.email, 'update@gmail.com')
         else:
