@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { getCustomerlisting, createInvoice } from "../serviceHandle";
+import { getCustomerlisting, createCustomerInvoice } from "../serviceHandle";
 import { toast } from "react-toastify";
 
 function CreateInvoiceModal({ show, onHide, updateListing }) {
@@ -24,17 +24,13 @@ function CreateInvoiceModal({ show, onHide, updateListing }) {
   const handleSubmit = async () => {
     try {
       const payload = {
-        invoice: {
-          customer: formData.customer,
-          amount: formData.amount,
-          date: formData.date,
-          status: formData.status,
-        },
+        customer: formData.customer,
+        amount: formData.amount,
+        date: formData.date,
+        status: formData.status,
       };
-      console.log(payload, "MMMMM");
-      const response = await createInvoice(payload); // Use your createInvoice service function
+      const response = await createCustomerInvoice(payload, "invoice"); // Use your createInvoice service function
       // Check if the API call was successful
-      console.log(response, "<<<<<<<<<>>>>>>>>>>>>>>");
       toast("Invoice created successfully!");
       // Optionally, you can reset the form after submission
       setFormData({

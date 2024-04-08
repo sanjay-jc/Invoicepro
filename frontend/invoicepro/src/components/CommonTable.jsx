@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { getCustomerlist } from "../serviceHandle";
+import { getCustomerInvoiceList } from "../serviceHandle";
 import CustomerUpdateModal from "./CustomerUpdateModal";
 import CreateCustomerModal from "./CreateCustomerModal";
 
@@ -20,7 +20,7 @@ function CommonTable() {
   };
   useEffect(() => {
     // Call getCustomerlist when the component mounts (page loads)
-    getCustomerlist()
+    getCustomerInvoiceList("customer")
       .then((customerList) => {
         // Handle the fetched customer list
         setRowData(customerList.results);
@@ -33,7 +33,7 @@ function CommonTable() {
 
   const updateListing = () => {
     // Call getInvoiceList to fetch the updated invoice list after saving
-    getCustomerlist()
+    getCustomerInvoiceList("customer")
       .then((customerList) => {
         // Handle the fetched invoice list
         setRowData(customerList.results);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { createInvoice } from "../serviceHandle";
+import { createCustomerInvoice } from "../serviceHandle";
 import { toast } from "react-toastify";
 
 function CreateCustomerModal({ show, onHide, updateListing }) {
@@ -23,15 +23,13 @@ function CreateCustomerModal({ show, onHide, updateListing }) {
   const handleSubmit = async () => {
     try {
       const payload = {
-        customer: {
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          address: formData.address,
-        },
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        address: formData.address,
       };
-      await createInvoice(payload); // Use your createInvoice service function
-      toast("Invoice created successfully!");
+      await createCustomerInvoice(payload, "customer"); // Use your createInvoice service function
+      toast("Customer created successfully!");
       setFormData({
         name: "",
         email: "",

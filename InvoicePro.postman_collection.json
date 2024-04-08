@@ -112,14 +112,14 @@
 			]
 		},
 		{
-			"name": "Create-Customer/Invoice",
+			"name": "Create-Customer-Invoice",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyNTczNDY0LCJpYXQiOjE3MTI0ODcwNjQsImp0aSI6ImYxOWNhNDEwNDc4NjQyOWM4YjZhMzZkN2FlM2M3OTA1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.xqMmDYID6Ffq1xFWGrCAwlc_SzQrmzrgP097q-AdwYM",
 							"type": "string"
 						}
 					]
@@ -128,7 +128,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"customer\":{\n        \"name\":\"sanjay jc\",\n        \"phone\":\"234232352\",\n        \"email\":\"sanjay@gmail.com\"\n    }\n    // \"invoice\":{\n    //     \"customer\":\"3b71bd88-e3cb-4000-b41c-54dce241fb83\",\n    //     \"amount\":\"123\",\n    //     \"status\":\"Paid\"\n    // }\n}",
+					"raw": "{\n    // \"customer\":{\n    //     \"name\":\"sanjay jc\",\n    //     \"phone\":\"234232352\",\n    //     \"email\":\"sanjay@gmail.com\"\n    // }\n\n        \"customer\":\"42b36fc1-30de-401c-92e1-37163e125fc8\",\n        \"amount\":\"123\",\n        \"status\":\"Paid\",\n        \"date\":\"1997-11-28\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -136,7 +136,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/invoice/v1/create-customer-invoice",
+					"raw": "http://127.0.0.1:8000/invoice/v1/create-customer-invoice/invoice",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -148,21 +148,22 @@
 					"path": [
 						"invoice",
 						"v1",
-						"create-customer-invoice"
+						"create-customer-invoice",
+						"invoice"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Customer",
+			"name": "Update Customer-Invoice",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyNTczNDY0LCJpYXQiOjE3MTI0ODcwNjQsImp0aSI6ImYxOWNhNDEwNDc4NjQyOWM4YjZhMzZkN2FlM2M3OTA1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.xqMmDYID6Ffq1xFWGrCAwlc_SzQrmzrgP097q-AdwYM",
 							"type": "string"
 						}
 					]
@@ -171,7 +172,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\":\"thisupdate1@gmail.com\"\n}",
+					"raw": "{ \n\n        \"customer\":\"84d08daf-54f0-4277-ae03-8fc31776d4f6\",\n        \"status\":\"Unpaid\",\n        \"amount\":12312312\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -179,7 +180,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/invoice/v1/update-customer/174acd71-50ed-443b-8331-20fd3e278d65",
+					"raw": "http://127.0.0.1:8000/invoice/v1/update-customer-invoice/invoice/d2fdff44-62a9-4497-b887-b16fe34f9e33",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -191,59 +192,16 @@
 					"path": [
 						"invoice",
 						"v1",
-						"update-customer",
-						"174acd71-50ed-443b-8331-20fd3e278d65"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Invoice",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTQxNjAyLCJpYXQiOjE3MTE0NTUyMDIsImp0aSI6IjZlNzAyZjVhNGExNTRlOThiZWNiNDZlNzFiN2QxN2U1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.fccs3aZ8rkYyijYuwdlMyEj2Op6VqQFoHzx9xjuTa7s",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"date\":\"2024-12-01\",\n    \"amount\":\"10000\"\n\n}\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/invoice/v1/update-invoice/b03046f9-453e-4cfa-a1dc-4348059363ec",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
+						"update-customer-invoice",
 						"invoice",
-						"v1",
-						"update-invoice",
-						"b03046f9-453e-4cfa-a1dc-4348059363ec"
+						"d2fdff44-62a9-4497-b887-b16fe34f9e33"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "List - Customer/Invoice",
+			"name": "List - Customer-Invoice",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -253,7 +211,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzExNTE5MDcyLCJpYXQiOjE3MTE0MzI2NzIsImp0aSI6ImY0NTY4YTI0N2M4YzQ1OWE5YjA0N2Y4NzY5NWI2MTRjIiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.YiumuT67GG0NV5YIrBwGixYmW0K4hTFa6zwJNdV26No",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyNTczNDY0LCJpYXQiOjE3MTI0ODcwNjQsImp0aSI6ImYxOWNhNDEwNDc4NjQyOWM4YjZhMzZkN2FlM2M3OTA1IiwidXNlcl9pZCI6ImYyOTlhYjNmLTUyZTQtNGI5Zi05Njg4LTlkMTgyMmIxY2I1NyJ9.xqMmDYID6Ffq1xFWGrCAwlc_SzQrmzrgP097q-AdwYM",
 							"type": "string"
 						}
 					]
@@ -265,7 +223,7 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/invoice/v1/list-customer-invoice/customers",
+					"raw": "http://127.0.0.1:8000/invoice/v1/list-customer-invoice/invoice",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -278,7 +236,7 @@
 						"invoice",
 						"v1",
 						"list-customer-invoice",
-						"customers"
+						"invoice"
 					]
 				}
 			},

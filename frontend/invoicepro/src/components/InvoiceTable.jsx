@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { getInvoiceList } from "../serviceHandle";
+import { getCustomerInvoiceList } from "../serviceHandle";
 import CreateInvoiceModal from "./CreateInvoiceModal";
 import InvoiceEditmodal from "./InvoiceEditmodal";
 
@@ -35,7 +35,7 @@ function InvoiceTable() {
 
   const updateListing = () => {
     // Call getInvoiceList to fetch the updated invoice list after saving
-    getInvoiceList()
+    getCustomerInvoiceList("invoice")
       .then((invoiceList) => {
         // Handle the fetched invoice list
         setInvoiceData(invoiceList.results);
@@ -48,7 +48,7 @@ function InvoiceTable() {
 
   useEffect(() => {
     // Call getCustomerlist when the component mounts (page loads)
-    getInvoiceList()
+    getCustomerInvoiceList("invoice")
       .then((customerList) => {
         // Handle the fetched customer list
         console.log(customerList.results, "<<<<<<<<<<<,,,");
@@ -99,7 +99,7 @@ function InvoiceTable() {
                 invoiceData.map((invoice) => (
                   <tr key={invoice.id}>
                     <td>{invoice.invoice_id}</td>
-                    <td>{invoice.customer_name}</td>
+                    <td>{invoice.customer.name}</td>
                     <td>{invoice.amount}</td>
                     <td>{invoice.date}</td>
                     <td>

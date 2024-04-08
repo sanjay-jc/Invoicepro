@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { updateInvoice, getCustomerlisting } from "../serviceHandle";
+import { updateCustomerInvoice, getCustomerlisting } from "../serviceHandle";
 import { toast } from "react-toastify";
 
 function InvoiceEditmodal({ show, onHide, selectedRowData, updateListing }) {
@@ -39,7 +39,7 @@ function InvoiceEditmodal({ show, onHide, selectedRowData, updateListing }) {
   const handleSubmit = async () => {
     try {
       // Perform API call to save the data
-      await updateInvoice(formData.id, formData);
+      await updateCustomerInvoice(formData.id, formData, "invoice");
       // Check if the API call was successful
       updateListing();
       toast("Invoice updated successfully!");
@@ -63,6 +63,7 @@ function InvoiceEditmodal({ show, onHide, selectedRowData, updateListing }) {
         console.error("Error fetching customer list:", error);
       });
   }, []);
+
   return (
     <Modal
       show={show}
@@ -87,7 +88,7 @@ function InvoiceEditmodal({ show, onHide, selectedRowData, updateListing }) {
             <Form.Label>Customer</Form.Label>
             <Form.Control
               as="select"
-              value={formData.customer}
+              value={formData.customer.id}
               onChange={handleChange}
             >
               <option value="{formData.customer}">Select customer...</option>

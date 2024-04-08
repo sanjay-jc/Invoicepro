@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { updateCustomer } from "../serviceHandle";
+import { updateCustomerInvoice } from "../serviceHandle";
 // import { toast } from "react-toastify";
 
 function CustomerUpdateModal({ show, onHide, selectedRowData, updateListing }) {
@@ -37,7 +37,7 @@ function CustomerUpdateModal({ show, onHide, selectedRowData, updateListing }) {
   const handleSubmit = async () => {
     console.log("formdata", formData, formData.id);
     try {
-      await updateCustomer(formData.id, formData);
+      await updateCustomerInvoice(formData.id, formData, "customer");
       updateListing();
       toast("Customer updated successfully");
       onHide();

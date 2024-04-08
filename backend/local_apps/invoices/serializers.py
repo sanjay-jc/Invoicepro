@@ -1,37 +1,7 @@
 from rest_framework import serializers
 from .models import *
-
-
-class CustomerSerializer(serializers.ModelSerializer):
-    """
-    Serializer for the Customer model.
-
-    This serializer is used to serialize and deserialize Customer objects.
-
-    """
-    name = serializers.CharField(required=True)
-    class Meta:
-        model = Customer
-        fields = ["id","customer_id","name","phone","email","address"]
-
-
-class InvoiceSerializer(serializers.ModelSerializer):
-    """
-    Serializer for the Invoice model.
-
-    This serializer is used to serialize and deserialize Invoice objects.
-
-    """
-    customer_name = serializers.SerializerMethodField(method_name="get_customer_name")
-
-    def get_customer_name(self,obj):
-        return obj.customer.name if obj.customer else "No Name"
-    
-    class Meta:
-        model = Invoice
-        fields = ["id","invoice_id","customer","date","amount","status","customer_name"]
-
-
+from django.apps import apps
+from django.core.exceptions import AppRegistryNotReady
 
 
 class CustomerListSerialzier(serializers.ModelSerializer):
@@ -41,4 +11,29 @@ class CustomerListSerialzier(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['id','name']
+        fields = ['id', 'name']
+
+
+def create_dynamic_serializer(model_name, app_label='invoices', depth=None):
+    """
+        Dynamically creates a ModelSerializer based on the provided model name and app label.
+
+        Parameters:
+            model_name (str): The name of the model for which the serializer is to be created.
+            app_label (str): The label of the Django app containing the model. Default is 'invoices'.
+    """
+
+    try:
+        model = apps.get_model(app_label=app_label, model_name=model_name)
+    except AppRegistryNotReady:
+        raise AppRegistryNotReady(
+            "Django app registry is not ready. Are you sure your models are loaded?")
+
+    DynamicModelSerializer = type(
+        'DynamicModelSerializer',
+        (serializers.ModelSerializer,),
+        {'Meta': type('Meta', (), {'model': model,
+                      'fields': '__all__', "depth": depth, "extra_kwargs": {"__all__": {}}})}
+    )
+
+    return DynamicModelSerializer

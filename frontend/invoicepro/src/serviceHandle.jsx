@@ -3,10 +3,9 @@ import axios from "axios";
 export const API_BASE_URL = "http://127.0.0.1:8000/";
 const LOGIN_URL = "account/v1/login";
 const LOGOUT_URL = "api/token/blacklist/";
-const CUSTOMER_LIST = "invoice/v1/list-customer-invoice/customers";
-const INVOICE_LIST = "invoice/v1/list-customer-invoice/invoices";
+const LIST_CUSTOMER__INVOICE = "invoice/v1/list-customer-invoice/";
 const CUSTOMER_LIST_UPDATE = "invoice/v1/list-customers";
-const CREATE_INVOICE_CUSTOMER = "invoice/v1/create-customer-invoice";
+const CREATE_INVOICE_CUSTOMER = "invoice/v1/create-customer-invoice/";
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -38,10 +37,10 @@ export const logoutRequest = (data) => {
     });
 };
 
-export const getCustomerlist = () => {
+export const getCustomerInvoiceList = (query) => {
   const token = localStorage.getItem("access_token");
   return axiosInstance
-    .get(CUSTOMER_LIST, {
+    .get(`${LIST_CUSTOMER__INVOICE}${query}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -53,24 +52,26 @@ export const getCustomerlist = () => {
     });
 };
 
-export const getInvoiceList = () => {
+export const createCustomerInvoice = (data, query) => {
   const token = localStorage.getItem("access_token");
+  const url = `${CREATE_INVOICE_CUSTOMER}${query}`;
   return axiosInstance
-    .get(INVOICE_LIST, {
+    .post(url, data, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.error("Error while fetching lead request:", error);
+      console.error("Error while updating customer:", error);
       throw error;
     });
 };
 
-export const updateInvoice = (invoiceId, updatedData) => {
+export const updateCustomerInvoice = (instanceId, updatedData, query) => {
   const token = localStorage.getItem("access_token");
-  const url = `invoice/v1/update-invoice/${invoiceId}`; // Assuming customerId is the UUID of the customer to be updated
+  const url = `invoice/v1/update-customer-invoice/${query}/${instanceId}`; // Assuming customerId is the UUID of the customer to be updated
 
   return axiosInstance
     .patch(url, updatedData, {
@@ -96,40 +97,6 @@ export const getCustomerlisting = () => {
     .then((response) => response.data)
     .catch((error) => {
       console.error("Error while fetching lead request:", error);
-      throw error;
-    });
-};
-
-export const createInvoice = (data) => {
-  const token = localStorage.getItem("access_token");
-  console.log(data, "<<<<<<<<<<<<");
-  return axiosInstance
-    .post(CREATE_INVOICE_CUSTOMER, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error("Error while updating customer:", error);
-      throw error;
-    });
-};
-
-export const updateCustomer = (customerId, updatedData) => {
-  const token = localStorage.getItem("access_token");
-  const url = `invoice/v1/update-customer/${customerId}`; // Assuming customerId is the UUID of the customer to be updated
-
-  return axiosInstance
-    .patch(url, updatedData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error("Error while updating customer:", error);
       throw error;
     });
 };
