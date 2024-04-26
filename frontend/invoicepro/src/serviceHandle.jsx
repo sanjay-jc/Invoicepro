@@ -1,5 +1,7 @@
 import axios from "axios";
 
+
+
 export const API_BASE_URL = "http://127.0.0.1:8000/";
 const LOGIN_URL = "account/v1/login";
 const LOGOUT_URL = "api/token/blacklist/";
@@ -100,3 +102,4 @@ export const getCustomerlisting = () => {
       throw error;
     });
 };
+

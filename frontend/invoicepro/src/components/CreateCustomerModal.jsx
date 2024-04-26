@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { createCustomerInvoice } from "../serviceHandle";
 import { toast } from "react-toastify";
 
-function CreateCustomerModal({ show, onHide, updateListing }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "", // Default status for new invoices
-  });
+function CreateCustomerModal({
+  show,
+  onHide,
+  updateListing,
+  fields,
+  moduletype,
+  initialData,
+  isEdit,
+}) {
+  const formObject = Object.fromEntries(
+    fields["createFields"].map((field) => [Object.keys(field)[0], ""])
+  );
+
+  const [formData, setFormData] = useState(formObject);
+  // Update form data with initial data if provided
+  useEffect(() => {
+    const formObject = Object.fromEntries(
+      fields["createFields"].map((field) => [Object.keys(field)[0], ""])
+    );
+
+    if (initialData) {
+      setFormData(initialData);
+    } else {
+      setFormData(formObject);
+    }
+  }, [initialData, fields]);
 
   // Function to handle form input changes
   const handleChange = (e) => {
@@ -22,20 +40,13 @@ function CreateCustomerModal({ show, onHide, updateListing }) {
 
   const handleSubmit = async () => {
     try {
-      const payload = {
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        address: formData.address,
-      };
-      await createCustomerInvoice(payload, "customer"); // Use your createInvoice service function
-      toast("Customer created successfully!");
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        address: "",
-      });
+      if (isEdit) {
+        await fields["updateFunction"](initialData.id, formData, moduletype);
+      } else {
+        await fields["createFunction"](formData, moduletype);
+      }
+      toast(`${moduletype} created successfully!`);
+      setFormData(formObject);
       updateListing();
       onHide();
     } catch (error) {
@@ -43,7 +54,7 @@ function CreateCustomerModal({ show, onHide, updateListing }) {
       const errorData = error.response.data.error;
       for (const key in errorData) {
         if (errorData.hasOwnProperty(key)) {
-          errorMessage += `${errorData[key]}\n`; // Append key and its corresponding value to errorMessage
+          errorMessage += `${key}: ${errorData[key]}\n`;
         }
       }
       toast(errorMessage);
@@ -60,45 +71,37 @@ function CreateCustomerModal({ show, onHide, updateListing }) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create Customer
+          Create {fields["header"]}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              type="text"
-              value={formData.customer}
-              onChange={handleChange}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group controlId="phone">
-            <Form.Label>Phone</Form.Label>
-            <Form.Control
-              type="text"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="email">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="address">
-            <Form.Label>Address</Form.Label>
-            <Form.Control
-              type="text"
-              value={formData.address}
-              onChange={handleChange}
-            />
-          </Form.Group>
+          {fields["createFields"].map((field, index) => (
+            <Form.Group controlId={Object.keys(field)[0]} key={index}>
+              <Form.Label>{field[Object.keys(field)[0]]}</Form.Label>
+              {field.type === "select" ? (
+                <Form.Control
+                  as="select"
+                  value={formData[Object.keys(field)[0]] || ""}
+                  onChange={handleChange} // Just pass handleChange directly
+                >
+                  {field.statusFields &&
+                    field.statusFields.map((status, statusIndex) => (
+                      <option key={statusIndex} value={status.id}>
+                        {status.name}
+                      </option>
+                    ))}
+                </Form.Control>
+              ) : (
+                <Form.Control
+                  type={field.type}
+                  value={formData[Object.keys(field)[0]] || ""}
+                  onChange={handleChange} // Just pass handleChange directly
+                  required={field.required}
+                />
+              )}
+            </Form.Group>
+          ))}
         </Form>
       </Modal.Body>
       <Modal.Footer>

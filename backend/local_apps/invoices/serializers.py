@@ -33,7 +33,7 @@ def create_dynamic_serializer(model_name, app_label='invoices', depth=None):
         'DynamicModelSerializer',
         (serializers.ModelSerializer,),
         {'Meta': type('Meta', (), {'model': model,
-                      'fields': '__all__', "depth": depth, "extra_kwargs": {"__all__": {}}})}
+                      'fields': '__all__', "depth": depth, })}
     )
 
     return DynamicModelSerializer

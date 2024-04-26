@@ -74,9 +74,9 @@ class CreateCustomerInvoice(APIView):
                     serializer.save()
                     return Response({"success": f"{model} creation successfull"})
                 else:
-                    return Response({"errorss": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+                    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                return Response({"errors`": "Expected a model type "})
+                return Response({"error`": "Expected a model type "})
 
         except Exception as e:
             # Handle any unexpected exceptions

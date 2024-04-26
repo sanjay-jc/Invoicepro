@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignIn from "./components/SignIn";
+import SignIn from "./components/auth/SignIn";
 import Main from "./pages/Main";
 import { ToastContainer } from "react-toastify";
 

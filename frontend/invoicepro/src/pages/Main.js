@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import CommonTable from "../components/CommonTable";
-import SideBar from "../components/Sidebar";
-import Topnav from "../components/Topnav";
-import InvoiceTable from "../components/InvoiceTable";
+// import CommonTable from "../components/CommonTable";
+import SideBar from "../components/common/Sidebar";
+import Topnav from "../components/common/Topnav";
+import DynamicTable from "../components/DynamicTable";
 
 function Main(params) {
   return (
@@ -11,8 +11,14 @@ function Main(params) {
       <SideBar />
       <div className="page-wrapper">
         <Routes>
-          <Route path="/customer" element={<CommonTable />} />
-          <Route path="/invoice" element={<InvoiceTable />} />
+          <Route
+            path="/customer"
+            element={<DynamicTable moduleName={"customer"} />}
+          />
+          <Route
+            path="/invoice"
+            element={<DynamicTable moduleName={"invoice"} />}
+          />
         </Routes>
       </div>
     </div>
